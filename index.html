@@ -4,6 +4,7 @@
     <script src="js/client.js"></script>
 	<script src="js/ua-parser.js"></script>
     <script>
+	(function(){
 	var client = new ClientJS(); // Create A New Client Object
 
 		if( client.isMobile() ) { // Check For Mobile Device
@@ -22,6 +23,7 @@
 
 				alert( fingerprint );
 		}
+		})();
     </script>
 
 </body>
