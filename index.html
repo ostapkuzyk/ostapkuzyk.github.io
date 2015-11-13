@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
+	<input type="hidden" id="fingerprint" value="">
     <script src="js/client.js"></script>
 	<script src="js/ua-parser.js"></script>
 	<script src="js/jquery-2.1.4.js"></script>
+	<script src="js/fontdetect.js"></script>
+	<script src="js/murmurhash3.js"></script>
+	<script src="js/swfobject.js"></script>	
     <script>
-	$(function(){
-	var client = new ClientJS(); // Create A New Client Object
-
+	$(document).ready(function(){
 		if( client.isMobile() ) { // Check For Mobile Device
-
-			if( client.isMobileAndroid() ) { // Check For Android
-				alert('We Got Us Some Android!');
-
-			}else if( client.isMobileIOS() ){ // Check For iOS
-				alert('We Got Us Some Apple iOS!');
+			if( client.isMobileIOS() ){ 
+				var client = new ClientJS();
+				var fingerprint = client.getFingerprint();
+		
+				$("#fingerprint").val(fingerprint);
 
 			}else{
 				alert('Unknown Mobile Device...');
 			}
-			
-			var fingerprint = client.getFingerprint(); // Calculate Device/Browser Fingerprint
-
-				alert( fingerprint );
 		}
 		});
     </script>
