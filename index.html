@@ -10,9 +10,9 @@
 	<script src="js/swfobject.js"></script>	
     <script>
 	$(document).ready(function(){
-		if( client.isMobile() ) { // Check For Mobile Device
-			if( client.isMobileIOS() ){ 
-				var client = new ClientJS();
+		var client = new ClientJS();
+		if(client.isMobile() ) {
+			if(client.isMobileIOS() ){ 
 				var fingerprint = client.getFingerprint();
 		
 				$("#fingerprint").val(fingerprint);
