@@ -162,7 +162,7 @@
         getFingerprint: function () {
             var bar             = '|';
 
-            // var userAgent       = browserData.ua;
+            var userAgent       = browserData.ua;
             var screenPrint     = this.getScreenPrint();
             var pluginList      = this.getPlugins();
             var fontList        = this.getFonts();
