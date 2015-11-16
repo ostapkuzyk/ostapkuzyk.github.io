@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
+	<button type="button" id="button">Invite user!</button>
+	
 	<input type="hidden" id="fingerprint" value="">
     <script src="js/client.js"></script>
 	<script src="js/ua-parser.js"></script>
@@ -8,8 +10,11 @@
 	<script src="js/fontdetect.js"></script>
 	<script src="js/murmurhash3.js"></script>
 	<script src="js/swfobject.js"></script>	
+	<script src="js/parse.js"></script>	
     <script>
 	$(document).ready(function(){
+		
+		
 		var client = new ClientJS();
 		if(client.isMobile() ) {
 			if(client.isMobileIOS() ){ 
@@ -21,7 +26,33 @@
 				alert('Unknown Mobile Device...');
 			}
 		}
+		
+		$("#button").click(function(){
+		// button click	
+			Parse.initialize("258iSnmmE46jaZS70ZYSm3FSFlNtaydYbrmQhpnt", "qsZ6d2i3sxZKrvztBHBwKkBKGusDtJgI3zehOY0V");
+			var client = new ClientJS();
+			
+			var fingerprint = client.getFingerprint();
+			
+			var Referral = Parse.Object.extend("Referral");
+			var gameScore = new Referral();
+
+			gameScore.set("fingerprint", fingerprint);
+
+			gameScore.save(null, {
+			  success: function(gameScore) {
+			    // Execute any logic that should take place after the object is saved.
+			    alert('New fingerprint created with objectId: ' + gameScore.id);
+			  },
+			  error: function(gameScore, error) {
+			    // Execute any logic that should take place if the save fails.
+			    // error is a Parse.Error with an error code and message.
+			    alert('Failed to create new object, with error code: ' + error.message);
+			  }
+			});			
+			
 		});
+});
     </script>
 
 </body>
