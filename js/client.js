@@ -174,6 +174,18 @@
             var cookies         = this.isCookie();
             var canvasPrint     = this.getCanvasPrint();
 
+			console.log(userAgent);
+			console.log(screenPrint);
+			console.log(pluginList);
+			console.log(fontList);
+			console.log(localStorage);
+			console.log(sessionStorage);
+			console.log(timeZone);
+			console.log(language);
+			console.log(systemLanguage);
+			console.log(cookies);
+			console.log(canvasPrint);
+			
             var key = userAgent+bar+screenPrint+bar+pluginList+bar+fontList+bar+localStorage+bar+sessionStorage+bar+timeZone+bar+language+bar+systemLanguage+bar+cookies+bar+canvasPrint;
             var seed = 256;
 
