@@ -32,7 +32,7 @@
 			Parse.initialize("258iSnmmE46jaZS70ZYSm3FSFlNtaydYbrmQhpnt", "qsZ6d2i3sxZKrvztBHBwKkBKGusDtJgI3zehOY0V");
 			var client = new ClientJS();
 			
-			var fingerprint = client.getFingerprint();
+			var fingerprint = client.getFingerprint().toString();
 			
 			var Referral = Parse.Object.extend("Referral");
 			var gameScore = new Referral();
