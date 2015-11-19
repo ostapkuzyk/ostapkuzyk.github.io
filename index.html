@@ -32,22 +32,30 @@
 			Parse.initialize("wtu3oQLLcbXkIQRJZN4Qov75llrfSPtdrkTfBHV3", "gm0xwJlX6WKkWM5bqHYNTRHTDzKBXjG2343GEUsA");
 			var client = new ClientJS();
 			
+			
+			var guideGenerator = function(){
+				function S4() {
+				    return (((1+Math.random())*0x10000)|0).toString(16).substring(1); 
+				}
+ 
+				return (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
+			};
+			
 			var fingerprint = client.getFingerprint().toString();
 			
-			var Referral = Parse.Object.extend("UserData");
-			var gameScore = new Referral();
+			var UserData = Parse.Object.extend("UserData");
+			var userData = new UserData();
 
-			gameScore.set("fingerprint", fingerprint);
+			var guide = guideGenerator();
+			userData.set("fingerprint", fingerprint);
+			userData.set("repId", guide);
 
-			gameScore.save(null, {
-			  success: function(gameScore) {
-			    // Execute any logic that should take place after the object is saved.
-			    alert('New fingerprint created with objectId: ' + gameScore.id);
+			userData.save(null, {
+			  success: function(userData) {
+			    alert('New fingerprint created with objectId: ' + userData.id);
 			  },
-			  error: function(gameScore, error) {
-			    // Execute any logic that should take place if the save fails.
-			    // error is a Parse.Error with an error code and message.
-			    alert('Failed to create new object, with error code: ' + error.message);
+			  error: function(userData, error) {
+				  alert('Failed to create new object, with error code: ' + error.message);
 			  }
 			});			
 			
