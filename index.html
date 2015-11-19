@@ -29,12 +29,12 @@
 		
 		$("#button").click(function(){
 		// button click	
-			Parse.initialize("258iSnmmE46jaZS70ZYSm3FSFlNtaydYbrmQhpnt", "qsZ6d2i3sxZKrvztBHBwKkBKGusDtJgI3zehOY0V");
+			Parse.initialize("wtu3oQLLcbXkIQRJZN4Qov75llrfSPtdrkTfBHV3", "gm0xwJlX6WKkWM5bqHYNTRHTDzKBXjG2343GEUsA");
 			var client = new ClientJS();
 			
 			var fingerprint = client.getFingerprint().toString();
 			
-			var Referral = Parse.Object.extend("Referral");
+			var Referral = Parse.Object.extend("UserData");
 			var gameScore = new Referral();
 
 			gameScore.set("fingerprint", fingerprint);
