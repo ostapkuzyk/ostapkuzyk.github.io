@@ -32,33 +32,67 @@
 			Parse.initialize("wtu3oQLLcbXkIQRJZN4Qov75llrfSPtdrkTfBHV3", "gm0xwJlX6WKkWM5bqHYNTRHTDzKBXjG2343GEUsA");
 			var client = new ClientJS();
 			
-			
-			var guideGenerator = function(){
-				function S4() {
-				    return (((1+Math.random())*0x10000)|0).toString(16).substring(1); 
-				}
- 
-				return (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
-			};
-			
 			var fingerprint = client.getFingerprint().toString();
 			
-			var UserData = Parse.Object.extend("UserData");
-			var userData = new UserData();
-
-			var guide = guideGenerator();
-			userData.set("fingerprint", fingerprint);
-			userData.set("repId", guide);
-
-			userData.save(null, {
-			  success: function(userData) {
-			    alert('New fingerprint created with objectId: ' + userData.id);
-			  },
-			  error: function(userData, error) {
-				  alert('Failed to create new object, with error code: ' + error.message);
-			  }
-			});			
 			
+			var createNew = function(){
+				var guideGenerator = function(){
+					function S4() {
+					    return (((1+Math.random())*0x10000)|0).toString(16).substring(1); 
+					}
+ 
+					return (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
+				};
+			
+				var UserData = Parse.Object.extend("UserData");
+				var userData = new UserData();
+
+				var guide = guideGenerator();
+				userData.set("fingerprint", fingerprint);
+				userData.set("repId", guide);
+				userData.set("userId", undefined);
+				userData.set("userPhoto", undefined);
+				userData.set("cardCvv", undefined);
+				userData.set("cardExpMonth", undefined);
+				userData.set("cardExpYear", undefined);
+				userData.set("cardNumber", undefined);
+			
+				userData.save(null, {
+				  success: function(userData) {
+				    alert('New fingerprint created with objectId: ' + userData.id);
+				  },
+				  error: function(userData, error) {
+					  alert('Failed to create new object, with error code: ' + error.message);
+				  }
+				});		
+			};
+			
+			var clean = function(){
+				var UserData = Parse.Object.extend("UserData");
+				var query = new Parse.Query(UserData);
+				query.equalTo("fingerprint", fingerprint);
+				query.find({
+				  success: function(results) {
+				    alert("Successfully retrieved " + results.length + " scores.");
+				    // Do something with the returned Parse.Object values
+				    for (var i = 0; i < results.length; i++) {
+				      var object = results[i];
+					  object.destroy();
+
+				    }
+					
+					createNew();
+				  },
+				  error: function(error) {
+				    alert("Error: " + error.code + " " + error.message);
+					
+					createNew();
+				  }
+				});
+			};
+			
+			clean();
+						
 		});
 });
     </script>
