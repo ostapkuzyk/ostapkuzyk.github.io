@@ -1,98 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<body>
-	<button type="button" id="button">Invite user!</button>
-	
-	<input type="hidden" id="fingerprint" value="">
-    <script src="js/client.js"></script>
-	<script src="js/ua-parser.js"></script>
-	<script src="js/jquery-2.1.4.js"></script>
-	<script src="js/fontdetect.js"></script>
-	<script src="js/murmurhash3.js"></script>
-	<script src="js/swfobject.js"></script>	
-	<script src="js/parse.js"></script>	
-    <script>
-	$(document).ready(function(){
-		
-		
-		var client = new ClientJS();
-		if(client.isMobile() ) {
-			if(client.isMobileIOS() ){ 
-				var fingerprint = client.getFingerprint();
-		
-				$("#fingerprint").val(fingerprint);
-
-			}else{
-				alert('Unknown Mobile Device...');
-			}
-		}
-		
-		$("#button").click(function(){
-		// button click	
-			Parse.initialize("wtu3oQLLcbXkIQRJZN4Qov75llrfSPtdrkTfBHV3", "gm0xwJlX6WKkWM5bqHYNTRHTDzKBXjG2343GEUsA");
-			var client = new ClientJS();
-			
-			var fingerprint = client.getFingerprint().toString();
-			
-			
-			var createNew = function(){
-				var guideGenerator = function(){
-					function S4() {
-					    return (((1+Math.random())*0x10000)|0).toString(16).substring(1); 
-					}
- 
-					return (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
-				};
-			
-				var UserData = Parse.Object.extend("UserData");
-				var userData = new UserData();
-
-				var guide = guideGenerator();
-				userData.set("fingerprint", fingerprint);
-				userData.set("repId", guide);
-				userData.set("userId", undefined);
-				userData.set("userPhoto", undefined);
-				userData.set("cardCvv", undefined);
-				userData.set("cardExpMonth", undefined);
-				userData.set("cardExpYear", undefined);
-				userData.set("cardNumber", undefined);
-			
-				userData.save(null, {
-				  success: function(userData) {
-				    alert('New fingerprint created with objectId: ' + userData.id);
-				  },
-				  error: function(userData, error) {
-					  alert('Failed to create new object, with error code: ' + error.message);
-				  }
-				});		
-			};
-			
-			var clean = function(){
-				var UserData = Parse.Object.extend("UserData");
-				var query = new Parse.Query(UserData);
-				query.equalTo("fingerprint", fingerprint);
-				query.find({
-				  success: function(results) {
-				    for (var i = 0; i < results.length; i++) {
-				      var object = results[i];
-					  object.destroy();
-				    }
-					
-					createNew();
-				  },
-				  error: function(error) {
-				    alert("Error: " + error.code + " " + error.message);
-					createNew();
-				  }
-				});
-			};
-			
-			clean();
-						
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width,minimum-scale=1.0" name="viewport">
+	<title>East Miami</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		var start_pos=$('#stick_menu').offset().top;
+		var start_pos2=850;
+		 $(window).scroll(function(){
+		  if ($(window).scrollTop()>=start_pos*0.7) {
+		      if ($('#stick_menu').hasClass()==false) $('#stick_menu').addClass('to_top');
+		  }
+		  else $('#stick_menu').removeClass('to_top');
+		 });
 		});
-});
-    </script>
-
+	</script>
+</head>
+<body>
+	<header>
+		<div class="container">
+			<img class="logo" src="img/awards-logo.png" alt="">
+			<img class="logo-2" src="img/faena-logo.png" alt="">
+		</div>
+	</header>
+	<section class="section-image">
+		<img src="img/main-image.jpg" alt="">
+	</section>
+	<section class="section-menu" id="stick_menu">
+		<div class="container">
+			<ul>
+				<li><a href="#">About the Awards</a></li>
+				<li><a href="#">Entry details & registration</a></li>
+				<li><a href="#">Purchase event tickets</a></li>
+				<li><a href="#">Contacts</a></li>
+			</ul>
+			<div class="clearfix"></div>
+		</div>
+	</section>
+	<section class="section-text">
+		<div class="container">
+			<p>The first annual Miami Hospitality Design Awards is available to all global licensed architecture and design firms, as well as venues, for hospitality projects completed in Miami-Dade County from January 1, 2014 to December 31, 2016.</p>
+			<p>For sponsorship opportunities, please contact the hotel association at fkhan@GMBHA.com or call 305.531.3553</p>
+		</div>
+	</section>
+	<section class="section-produced">
+		<div class="container">
+			<div class="left">
+				<p>Founded and Produced by</p>
+				<div class="img">
+					<img class="img-1" src="img/logo-01.jpg" alt="">
+					<img class="img-2" src="img/logo-02.jpg" alt="">
+					<img class="img-3" src="img/logo-03.jpg" alt="">
+				</div>
+			</div>
+			<div class="right">
+				<p>Presenting Sponsor</p>
+				<div class="line">&nbsp;</div>
+				<div class="img">
+					<img src="img/logo-04.jpg" alt="">
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</section>
+	<section class="section-about">
+		<div class="container">
+			<p class="title">About The Awards</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+		</div>
+	</section>
 </body>
-
 </html>
